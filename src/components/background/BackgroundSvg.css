@@ -1,0 +1,19 @@
+.conic-gradient-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  
+  filter: blur(121.81890869140625px);
+  pointer-events: none;
+  background: conic-gradient(
+    from 135deg at 52.72% 30.87%,
+    rgba(98, 132, 255, 0.30) 30.45651286840439deg,
+    rgba(255, 114, 182, 0.30) 51.42127811908722deg,
+    rgba(249, 229, 232, 0.30) 94.69802856445312deg,
+    rgba(151, 225, 212, 0.30) 169.1589081287384deg
+    );
+}
+  

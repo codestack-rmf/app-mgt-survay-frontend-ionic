@@ -1,0 +1,18 @@
+.gradient-blur-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;         /* ajusta según tu diseño */
+  height: 100%;        /* ajusta según tu diseño */
+  opacity: 0.76;
+  filter: blur(121.8189px);
+  background: conic-gradient(
+    from 134deg at 52.72% 26.57%,
+    rgba(98, 132, 255, 0.52) 30.4565deg,
+    rgba(255, 114, 182, 0.52) 51.4213deg,
+    rgba(249, 229, 232, 0.52) 94.698deg,
+    rgba(151, 225, 212, 0.52) 169.1589deg
+  );
+  z-index: -1;
+}
+  

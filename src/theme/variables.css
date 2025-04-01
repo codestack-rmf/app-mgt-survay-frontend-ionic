@@ -1,2 +1,146 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+:root {
+    --ion-font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --global-font-style: normal;
+}
+
+body {
+    font-family: var(--ion-font-family);
+}
+
+ion-text,
+ion-label,
+ion-button,
+ion-title,
+ion-item,
+ion-card-title,
+ion-card-subtitle {
+    font-style: var(--global-font-style);
+    color: #FFFFFF;
+}
+
+.full-height-grid {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .col-left {
+    align-content:center;
+    text-align: left ;
+  }
+  
+  .col-top {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  .col-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  .col-bottom-center {
+    display: flex;
+    text-align: center;
+    vertical-align: bottom;
+  }
+
+  .input-bordered {
+    border: 1px solid #FFFFFF;
+    border-radius: 38px;
+    padding: 8px 12px;
+    --padding-start: 12px;
+    --highlight-color-focused: rgba(122, 130, 185, 1);
+    --placeholder-color: rgba(122, 130, 185, 1);
+
+    color: rgba(122, 130, 185, 1);
+    font-size: 16px;
+    text-align: center;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .custom-label {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .custom-label-toogle {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .title-header {
+    font-size: 37px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .sub-label {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 112.462%;
+  }
+
+  .custom-range {
+    
+    --bar-background-active: linear-gradient(90deg, rgba(151, 225, 212, 0.72) 4.29%);
+    --bar-background:#8E91A1;
+    --bar-height: 13px;
+    --bar-border-radius: 5px;
+    --knob-size: 34px;
+    --knob-background: linear-gradient(90deg, #EAD8F3 0%, #E5EDFF 100%);
+    
+    /*box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;*/
+  }
+
+  ion-range::part(bar-active) {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
+
+  ion-range::part(tick) {
+    background:rgba(108, 111, 129, 1);
+    border-radius: 50px;
+    transform: translateX(-100%);
+  }
+
+  .expand-row {
+    flex-grow: 1 !important;
+    display: flex !important;
+  }
+  
+  .expand-row ion-col {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  
+  /*ion-range::part(bar) {
+    width: 103%;
+  }*/

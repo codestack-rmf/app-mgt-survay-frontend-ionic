@@ -1,28 +1,45 @@
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonText, IonCard, IonCardContent } from '@ionic/react';
+import { IonPage, IonContent, IonText, IonCard, IonCardContent, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { useIonRouter } from '@ionic/react';
 import SliderButton from '../components/SliderButton'; // Importamos el componente reutilizable
 import './WelcomeScreen.css'; // Archivo de estilos separado
+import BackgroundWelcome from '../components/background/BackgroundWelcome';
+import RitualSVG from '../components/icons/RitualSVG';
+import RitualTitleSVG from '../components/icons/RitualTitleSVG';
+import RitualTitle2SVG from '../components/icons/RitualTitleSVG2';
 
 const WelcomeScreen: React.FC = () => {
   const router = useIonRouter();
 
   return (
     <IonPage>
-      <IonContent className="welcome-container" fullscreen>
-        <IonCard className="welcome-card">
-          <IonCardContent>
-            <IonText className="title">Deck Ritual</IonText>
+      <IonContent fullscreen>
+      <BackgroundWelcome/>
+      <IonGrid fixed={true} className='full-height-grid'>
+        <IonRow class='grid-row-1'>
+          <IonCol size="12" class='col-bottom'>
+            <RitualSVG/>
+          </IonCol>
+        </IonRow>
+        <IonRow class='grid-row-2'>
+          <IonCol size='12' class='col-top'>
+            <RitualTitleSVG/>
+            
+          </IonCol>
+        </IonRow>
+        <IonRow className="grid-row-3">
+          <IonCol size='12' class='col-center'>
             <IonText className="description">
-              <b>An EDH Deck Building test to lead Rule-0 conversations.</b>
+              Unveil your Commander deck’s true essence, revealing its hidden potential.
             </IonText>
-            <IonText className="description">
-              Slide to start the process
-            </IonText>
-            {/* Implementamos el componente reutilizable */}
-            <SliderButton onUnlock={() => router.push('/survey')} />
-          </IonCardContent>
-        </IonCard>
+          </IonCol>
+        </IonRow>
+        <IonRow className="grid-row-4">
+          <IonCol size='12' class='col-center'>
+              <SliderButton onUnlock={() => router.push('/survey')} />
+          </IonCol>
+        </IonRow>
+      </IonGrid>
       </IonContent>
     </IonPage>
   );

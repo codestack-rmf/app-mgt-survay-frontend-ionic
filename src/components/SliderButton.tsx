@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonRange, IonIcon, IonText } from '@ionic/react';
 import { chevronForwardCircleOutline, chevronForwardOutline, arrowForward } from 'ionicons/icons';
 import './SliderButton.css'; // Archivo de estilos separado
+import Deck from './icons/Deck';
 
 interface SliderButtonProps {
   onUnlock: () => void;
@@ -20,7 +21,7 @@ const SliderButton: React.FC<SliderButtonProps> = ({ onUnlock, text = "Summon yo
   };
 
   const handleSliderEnd = () => {
-    if (sliderValue >= 51) {
+    if (sliderValue >= 25) {
       onUnlock();
     } else {
       setSliderValue(0);
@@ -31,7 +32,7 @@ const SliderButton: React.FC<SliderButtonProps> = ({ onUnlock, text = "Summon yo
     <div className="slider-container">
       <IonRange
         min={0}
-        max={51}
+        max={25}
         step={1}
         value={sliderValue}
         onIonInput={handleSliderChange}
@@ -40,6 +41,7 @@ const SliderButton: React.FC<SliderButtonProps> = ({ onUnlock, text = "Summon yo
       />
       <div className="slider-overlay" style={{ left: `${sliderValue}%` }}>
         <IonText className="slider-text">{text}</IonText>
+        <Deck/>
       </div>
       
 
