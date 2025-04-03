@@ -252,6 +252,7 @@ const SurveyScreen: React.FC = () => {
     try {
       const response = await fetch('http://35.93.216.65:3400/api/users', {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(surveyData),
       });
@@ -285,6 +286,7 @@ const SurveyScreen: React.FC = () => {
     try {
       const response = await fetch(`http://35.93.216.65:3400/api/users/validate-deck?url=${encodeURIComponent(url)}`, {
         method: 'GET',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' }
       });
       if (response.ok) {
