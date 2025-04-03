@@ -6,11 +6,36 @@ import './SurveyScreen.css';
 import SvgIcon from '../components/SvgIcon';
 import HeaderList from '../components/icons/HeaderList';
 import BackgroundSvg from '../components/background/BackgroundSvg';
+import HeaderManabase from '../components/icons/HeaderManabase';
+import HeaderStrategy from '../components/icons/HeaderStrategy';
+import HeaderPhilosophy from '../components/icons/HeaderPhilosophy';
+import HeaderArchetype from '../components/icons/HeaderArchetype';
+import HeaderStaples from '../components/icons/HeaderStaples';
+import HeaderGoals from '../components/icons/HeaderGoals';
+import HeaderConsistency from '../components/icons/HeaderConsistency';
+import HeaderSpeed from '../components/icons/HeaderSpeed';
+import HeaderWinning from '../components/icons/HeaderWinning';
+import Question1 from '../components/icons/Question1';
+import NumberQuestion from '../components/NumberQuestion';
+
+const svgMap: { [key: string]: React.FC<React.SVGProps<SVGSVGElement>> } = {
+  theList: HeaderList,
+  commanderStaples: HeaderStaples,
+  strategy: HeaderStrategy,
+  manabase: HeaderManabase,
+  speed: HeaderSpeed,
+  consistency: HeaderConsistency,
+  winCondition: HeaderWinning,
+  playerGoal: HeaderGoals,
+  winArchetype: HeaderArchetype,
+  buildPhilosophy: HeaderPhilosophy
+};
 
 
 const questions = [
   { id: 'theList',
     title: 'List',
+    icon: HeaderList,
     question: 'Which of the following best describes the list of cards in your deck?',
     options: [
       'Random cards I’ve collected. I found this card on the bus!',
@@ -21,6 +46,7 @@ const questions = [
   },
   { id: 'manabase',
     title: 'Manabase',
+    icon: HeaderManabase,
     question: 'Which of the following best describes the list of cards in your deck?',
     options: [
       '28 lands is fine, right? I don’t know what color fixing is.',
@@ -31,6 +57,7 @@ const questions = [
   },
   { id: 'strategy',
     title: 'Strategy',
+    icon: HeaderStrategy,
     question: 'How clear and reinforced is your deck’s strategy?',
     options: [
       'Chaos is the strategy, or my deck doesn’t have a defined plan.',
@@ -42,6 +69,7 @@ const questions = [
   {
     id: 'winCondition',
     title: 'Winning',
+    icon: HeaderWinning,
     question:'What is your deck’s win condition like?',
     options: [
       'What’s a win condition?',
@@ -53,6 +81,7 @@ const questions = [
   {
     id: 'speed',
     title: 'Speed',
+    icon: HeaderSpeed,
     question:'How fast can your deck win a game?',
     options: [
       'Win? What’s that?',
@@ -64,6 +93,7 @@ const questions = [
   {
     id: 'consistency',
     title: 'Consistency',
+    icon: HeaderConsistency,
     question: 'How often does your deck win or perform well?',
     options: [
       'Winning is an accident.',
@@ -75,6 +105,7 @@ const questions = [
   {
     id: 'playerGoal',
     title: 'Goals',
+    icon: HeaderGoals,
     question: 'What do you want out of commander games with this deck?',
     options: [
       'I want to chill and have fun.',
@@ -86,6 +117,7 @@ const questions = [
   {
     id: 'commanderStaples',
     title: 'Staples',
+    icon: HeaderStaples,
     question:'How sweaty is your card selection?',
     options: [
       'I’ve made my deck bad... on purpose.',
@@ -97,6 +129,7 @@ const questions = [
   {
     id: 'winArchetype',
     title: 'Archetype',
+    icon: HeaderArchetype,
     question: 'How does your deck win usually?',
     options: [
       'Everyone forgets I exist.',
@@ -108,6 +141,7 @@ const questions = [
   {
     id: 'buildPhilosophy',
     title: 'Philosophy',
+    icon: HeaderPhilosophy,
     question:'What best describes your deck building goals?',
     options: [
       'Every card needs to share a theme, either art, typal, artist etc, regardless of power-level.',
@@ -131,10 +165,14 @@ const SurveyScreen: React.FC = () => {
   const [partnerCommander, setPartnerCommander] = useState('');
   const [usePartnerCommander, setUsePartnerCommander] = useState(false);
   const [playerExperience, setPlayerExperience] = useState(1);
+  const [validateDeck, setValidateDeck] = useState(undefined);
 
   // Step 2 - Questionnaire Answers
   const [answers, setAnswers] = useState<{ [key: string]: number }>({});
   const [errorMessage, setErrorMessage] = useState('');
+
+  const currentQuestion = questions[step ? step - 1:0];
+  const IconComponent = currentQuestion.icon;
 
   const getColorExperience = (experience: number) => {
     if (experience == 4) return 'linear-gradient(90deg, rgba(151, 225, 212, 0.72) 4.29%, rgba(249, 229, 232, 0.72) 33.21%, rgba(98, 132, 255, 0.72) 62.15%, rgba(255, 114, 182, 0.72) 97.45%)';
@@ -185,22 +223,13 @@ const SurveyScreen: React.FC = () => {
     }
   };
 
-  /*const calculateOverallScore = (answers, playerExperience) => {
-    const totalQuestions = Object.keys(answers).length;
-    const totalScore = Object.values(answers).reduce((acc, score) => acc + score, playerExperience);
-
-    const normalizedScore = (totalScore / (totalQuestions * 4)) * 4;
-
-    return Math.min(4, normalizedScore).toFixed(2);  // Cap the score at 4
-  };*/
-
   const calculateOverallScore = (answers: { [key: string]: number }, playerExperience: number) => {
     const totalQuestions = Object.keys(answers).length;
     const totalScore = Object.values(answers).reduce((acc, score) => acc + score, 0) + playerExperience;
   
-    const normalizedScore = (totalScore / ((totalQuestions + 1) * 4)) * 4; // +1 porque agregamos el experience
+    const normalizedScore = (totalScore / ((totalQuestions + 1) * 4)) * 4;
   
-    return normalizedScore.toFixed(2); // Retorna un número con dos decimales
+    return normalizedScore.toFixed(2);
   };
 
   const handleSubmit = async () => {
@@ -233,7 +262,8 @@ const SurveyScreen: React.FC = () => {
         history.push('/results', { 
           answers,
           overallScore: surveyData.overallScore,
-          playerExperience
+          playerExperience,
+          validateDeck
         });
       } else {
         console.error('Error submitting survey:', response.statusText);
@@ -245,39 +275,70 @@ const SurveyScreen: React.FC = () => {
     }
   };
 
+  const handleBlur = async (url: string) => {
+    debugger;
+
+    setDeckUrl(url);
+
+    if (!url) return;
+
+    try {
+      const response = await fetch(`http://localhost:3001/api/users/validate-deck?url=${encodeURIComponent(url)}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Survey get validate deck:', data);
+        setValidateDeck(data);
+        setDeckName(data.bracketName);
+        setSelectedCommander(data.details.split("\n")[0].split(":")[1].trim());
+        //setPartnerCommander(data.details.split("\n")[0].split(":")[1].trim());
+      } else {
+        console.error('Error submitting survey:', response.statusText);
+        alert('Error submitting survey. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error al consultar la URL:', error);
+      alert('Error al cargar el deck');
+    }
+  };
+
 
   return (
     <IonPage>
       
-      <IonContent className="survey-container">
+      <IonContent className="custom-container">
         
             {step === 0 ? (
               <>
                 <IonCard className="survey-card">
                   <BackgroundSvg/>
                 
-                  <IonCardContent>
+                  <IonCardContent className='scroll'>
                     <IonGrid fixed={true} className='full-height-grid'>
                       <IonRow>
                         <IonCol size='12'>
-                        <IonCardHeader>
-                          <IonCardTitle className='title-header'>Lets begin with some details.</IonCardTitle>
-                        </IonCardHeader>
+                          <IonCardHeader>
+                            <IonCardTitle className='header-title'>Lets begin with some details.</IonCardTitle>
+                          </IonCardHeader>
                         </IonCol>
                       </IonRow>
                       <IonRow>
                       <IonCol size="5" className="col-left">
-                        <IonLabel className='custom-label-toogle'>Import Decktlist</IonLabel>
+                        <IonLabel className='custom-label'>Import Decktlist</IonLabel>
                       </IonCol>
                         <IonCol size="7" className="col-left">
-                          <IonToggle checked={deckImport} onIonChange={(e) => setDeckImport(e.detail.checked)} />
+                          <IonToggle 
+                            className='custom-toggle'
+                            aria-label="Primary toggle"
+                            checked={deckImport}
+                            onIonChange={(e) => setDeckImport(e.detail.checked)}
+                          />
                         </IonCol>
                       </IonRow>
                       
                       {deckImport && (
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                        <IonLabel className='custom-label' >Deck URL</IonLabel>
+                          <IonLabel className='custom-label' >Deck URL</IonLabel>
                         </IonCol>
                       </IonRow>
                       )
@@ -289,8 +350,8 @@ const SurveyScreen: React.FC = () => {
                           <IonInput
                             fill="outline" shape="round" 
                             className='input-bordered'
-                            placeholder="https://url.com"
-                            value={deckUrl} onIonChange={(e) => setDeckUrl(e.detail.value!)} />
+                            placeholder="https://example.com/deck/deckId"
+                            value={deckUrl} onIonChange={(e) => handleBlur(e.detail.value!)} />
                         </IonCol>
                       </IonRow>
                       )
@@ -298,7 +359,7 @@ const SurveyScreen: React.FC = () => {
 
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                          <IonLabel className='custom-label' >Deck Name</IonLabel>
+                          <IonLabel className='custom-label'>Deck Name</IonLabel>
                         </IonCol>
                       </IonRow>
                       <IonRow>
@@ -311,8 +372,19 @@ const SurveyScreen: React.FC = () => {
                         </IonCol>
                       </IonRow>
                       <IonRow>
-                        <IonCol size="12"  className="col-left">
+                        <IonCol size="6"  className="col-left">
                           <IonLabel className='custom-label' >Commander</IonLabel>
+                        </IonCol>
+                        <IonCol size="3"  className="col-left">
+                          <IonLabel className='custom-label'>Partner</IonLabel>
+                        </IonCol>
+                        <IonCol size="3"  className="col-left">
+                          <IonToggle
+                            className='custom-toggle'
+                            checked={usePartnerCommander}
+                            onIonChange={(e) => setUsePartnerCommander(e.detail.checked)
+                              
+                            } />
                         </IonCol>
                       </IonRow>
                       <IonRow>
@@ -322,18 +394,6 @@ const SurveyScreen: React.FC = () => {
                           className='input-bordered'
                           placeholder="Select commander"
                           value={selectedCommander} onIonChange={(e) => setSelectedCommander(e.detail.value!)} />
-                        </IonCol>
-                      </IonRow>
-
-
-                      <IonRow>
-                        <IonCol size="12"  className="col-left">
-                          <IonLabel className='custom-label-toogle'>Partner</IonLabel>
-                        </IonCol>
-                      </IonRow>
-                      <IonRow>
-                        <IonCol size="12"  className="col-left">
-                          <IonToggle checked={usePartnerCommander} onIonChange={(e) => setUsePartnerCommander(e.detail.checked)} />
                         </IonCol>
                       </IonRow>
                       
@@ -406,43 +466,89 @@ const SurveyScreen: React.FC = () => {
             ) : step <= questions.length ? (
               <>
                 <IonCard className="survey-card">
-                <BackgroundSvg/>
-                <IonCardHeader>
-                  <IonCardSubtitle>Puntos</IonCardSubtitle>
-                  <IonCardTitle>
-                  <div style={{ padding: '2rem' }}>
-                    <HeaderList/>
-                  </div>
-                      <h2>{questions[step - 1].title}</h2>
+                  <BackgroundSvg/>
+                  <NumberQuestion numberText={step}/>
+                  <IonCardContent className='scroll'>
+                    <IonGrid fixed={true} className='full-height-grid'>
+                      <IonRow className='row-puntation'>
+                        <IonCol size='7' style={
+                          {display: 'flex',
+                          paddingRight: '16px',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          alignSelf: 'stretch'}}>
+
+                            {[...Array(10)].map((_, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  width: '9px',
+                                  height: '9px',
+                                  transform: 'rotate(45deg)',
+                                  background: i < step ? '#8C99F8' : 'transparent', // solo el primero relleno
+                                  border: '1px solid #8C99F8',
+                                  margin: '0 4px',
+                                }}
+                              />
+                            ))}
+
+                        </IonCol>
+                        <IonCol size='5' className='col-right'>
+                          <div style={{
+                            width: '47px',
+                            height: '47px',
+                            flexShrink: '0',
+                            borderRadius: '50px',
+                            borderStyle: 'solid',
+                            borderWidth: '2px',
+                            background: 'rgba(0, 0, 0)',
+                            borderColor: '#FFFFFF'}}>
+                          </div>
+                        </IonCol>
+                      </IonRow>
+                      <IonRow className='row-title'>
+                        <IonCol size='2'>
+                          {IconComponent && <IconComponent/>}
+                        </IonCol>
+                        <IonCol className='header-title-question' size='10'>
+                          <h1 className='custom-title-question'>{questions[step - 1].title}</h1>
+                        </IonCol>
+                      </IonRow>
+                      <IonRow>
+                        <IonCol>
+                          <h2 className="survey-question">{questions[step - 1].question}</h2>
+                        </IonCol>
+                      </IonRow>
+                      <IonRow>
+                        <IonCol>
+                          <IonRadioGroup
+                            value={answers[questions[step - 1].id] || ''}
+                            onIonChange={(e) => setAnswers({ ...answers, [questions[step - 1].id]: Number(e.detail.value) })}
+                          >
+                            {questions[step - 1].options.map((option, index) => (
+                              <IonItem key={index} className="custom-item">
+                                <IonLabel className='custom-text-item'>{option}</IonLabel>
+                                <IonRadio className="custom-radio" slot="start" value={index + 1} />
+                              </IonItem>
+                            ))}
+                          </IonRadioGroup>
+                          {errorMessage && <IonText color="danger">{errorMessage}</IonText>}
+                        </IonCol>
+                      </IonRow>
+                      <IonRow className='expand-row'>
+                        <IonCol size="6"  className="col-bottom-center">
+                            <IonButton className="btn-back" shape="round" onClick={handleBack}>
+                              Back
+                            </IonButton>
+                        </IonCol>
+                        <IonCol size="6"  className="col-bottom-center">
+                            <IonButton className="btn-next" shape="round" onClick={handleNext}>
+                              {step < questions.length ? 'Next' : 'Submit'}
+                            </IonButton>
+                        </IonCol>
+                      </IonRow>
+                    </IonGrid>
                     
-                  </IonCardTitle>
-                </IonCardHeader>
-
-                  <IonCardContent>
-                    {/* Step 2: Questionnaire */}
-                    <h2 className="survey-question">{questions[step - 1].question}</h2>
-                    <IonRadioGroup
-                      value={answers[questions[step - 1].id] || ''}
-                      onIonChange={(e) => setAnswers({ ...answers, [questions[step - 1].id]: Number(e.detail.value) })}
-                    >
-                      {questions[step - 1].options.map((option, index) => (
-                        <IonItem key={index} className="rounded-input">
-                          <IonLabel className='custom-label'>{option}</IonLabel>
-                          <IonRadio slot="start" value={index + 1} />
-                        </IonItem>
-                      ))}
-                    </IonRadioGroup>
-
-                    {errorMessage && <IonText color="danger">{errorMessage}</IonText>}
-
-                    <div className="survey-buttons">
-                      <IonButton className="rounded-button" shape="round" onClick={handleBack}>
-                        Back
-                      </IonButton>
-                      <IonButton className="rounded-button" shape="round" onClick={handleNext}>
-                        {step < questions.length ? 'Next' : 'Submit'}
-                      </IonButton>
-                    </div>
                   </IonCardContent>
                 </IonCard>
               </>

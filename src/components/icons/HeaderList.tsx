@@ -1,5 +1,4 @@
 import React from 'react';
-import './HeaderList.css'; // Archivo de estilos separado
 
 const HeaderList: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg

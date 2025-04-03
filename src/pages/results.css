@@ -1,0 +1,20 @@
+.results-content {
+  padding: 16px;
+  background: #f5f5f5;
+}
+
+.power-level-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.radar-container {
+  padding: 1rem;
+}
+
+.custom-indicators {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

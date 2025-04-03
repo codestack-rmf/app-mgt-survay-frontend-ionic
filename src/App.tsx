@@ -33,6 +33,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import SurveyScreen from './pages/SurveyScreen';
+import ResultsPage from './pages/ResultsPage';
 
 setupIonicReact();
 
@@ -45,6 +46,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/survey">
           <SurveyScreen />
+        </Route>
+        <Route exact path="/results">
+          <ResultsPage />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

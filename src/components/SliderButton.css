@@ -23,7 +23,7 @@
   }
   
   .slider-overlay {
-    background: var(--BtnBG, linear-gradient(90deg, #EAD8F3 0%, #E5EDFF 100%));
+    background: linear-gradient(90deg, #EAD8F3 0%, #E5EDFF 100%);
     position: absolute;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@
     border-color: #7A82B9;
     padding: 12px 20px;
     border-radius: 38px;
-    border-style:solid;
+    border-style: solid;
     border-width: 3px;
     height: 100%;
     width: 75%;
