@@ -283,7 +283,10 @@ const SurveyScreen: React.FC = () => {
     if (!url) return;
 
     try {
-      const response = await fetch(`http://35.93.216.65:3400/api/users/validate-deck?url=${encodeURIComponent(url)}`);
+      const response = await fetch(`http://35.93.216.65:3400/api/users/validate-deck?url=${encodeURIComponent(url)}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
       if (response.ok) {
         const data = await response.json();
         console.log('Survey get validate deck:', data);
