@@ -250,7 +250,7 @@ const SurveyScreen: React.FC = () => {
     };
   
     try {
-      const response = await fetch('http://localhost:3001/api/users', {
+      const response = await fetch('http://35.93.216.65:3400/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(surveyData),
@@ -283,7 +283,7 @@ const SurveyScreen: React.FC = () => {
     if (!url) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/users/validate-deck?url=${encodeURIComponent(url)}`);
+      const response = await fetch(`http://35.93.216.65:3400/api/users/validate-deck?url=${encodeURIComponent(url)}`);
       if (response.ok) {
         const data = await response.json();
         console.log('Survey get validate deck:', data);
