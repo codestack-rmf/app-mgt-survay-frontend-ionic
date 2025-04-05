@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { IonPage, IonContent, IonCard, IonCardContent, IonInput, IonItem, IonLabel, IonButton, IonToggle, IonRange, IonRadio, IonRadioGroup, IonText, IonCardHeader, IonCardTitle, IonCardSubtitle, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { useHistory } from 'react-router-dom';
 import './SurveyScreen.css';
 
-import SvgIcon from '../components/SvgIcon';
 import HeaderList from '../components/icons/HeaderList';
 import BackgroundSvg from '../components/background/BackgroundSvg';
 import HeaderManabase from '../components/icons/HeaderManabase';
@@ -15,21 +14,7 @@ import HeaderGoals from '../components/icons/HeaderGoals';
 import HeaderConsistency from '../components/icons/HeaderConsistency';
 import HeaderSpeed from '../components/icons/HeaderSpeed';
 import HeaderWinning from '../components/icons/HeaderWinning';
-import Question1 from '../components/icons/Question1';
 import NumberQuestion from '../components/NumberQuestion';
-
-const svgMap: { [key: string]: React.FC<React.SVGProps<SVGSVGElement>> } = {
-  theList: HeaderList,
-  commanderStaples: HeaderStaples,
-  strategy: HeaderStrategy,
-  manabase: HeaderManabase,
-  speed: HeaderSpeed,
-  consistency: HeaderConsistency,
-  winCondition: HeaderWinning,
-  playerGoal: HeaderGoals,
-  winArchetype: HeaderArchetype,
-  buildPhilosophy: HeaderPhilosophy
-};
 
 
 const questions = [
@@ -153,10 +138,17 @@ const questions = [
 ];
 
 const SurveyScreen: React.FC = () => {
+
   const history = useHistory();
+  //const location = useLocation();
+
+  
+
+
+
+  
   const [step, setStep] = useState(0);
 
-  // Step 1 - Player Information
   const [deckImport, setDeckImport] = useState(false);
   const [deckUrl, setDeckUrl] = useState('');
   //const [playerName, setPlayerName] = useState('');
@@ -167,11 +159,26 @@ const SurveyScreen: React.FC = () => {
   const [playerExperience, setPlayerExperience] = useState(1);
   const [validateDeck, setValidateDeck] = useState(undefined);
 
-  // Step 2 - Questionnaire Answers
   const [answers, setAnswers] = useState<{ [key: string]: number }>({});
   const [errorMessage, setErrorMessage] = useState('');
 
-  const currentQuestion = questions[step ? step - 1:0];
+  /*useEffect(() => {
+    // Cuando el componente se monta y es navegación directa a /survey, reinicia el estado
+    setStep(0);
+    setDeckImport(false);
+    setDeckUrl('');
+    setDeckName('');
+    setSelectedCommander('');
+    setPartnerCommander('');
+    setUsePartnerCommander(false);
+    setPlayerExperience(1);
+    setValidateDeck(undefined);
+    setAnswers({});
+    setErrorMessage('');
+  }, [location.pathname]);*/
+
+
+  const currentQuestion = questions[step ? step - 1 : 0];
   const IconComponent = currentQuestion.icon;
 
   const getColorExperience = (experience: number) => {
@@ -250,7 +257,7 @@ const SurveyScreen: React.FC = () => {
     };
   
     try {
-      const response = await fetch('http://35.93.216.65:3400/api/users', {
+      const response = await fetch('https://deckritual.com/api/users', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -284,7 +291,7 @@ const SurveyScreen: React.FC = () => {
     if (!url) return;
 
     try {
-      const response = await fetch(`http://35.93.216.65:3400/api/users/validate-deck?url=${encodeURIComponent(url)}`, {
+      const response = await fetch(`https://deckritual.com/api/users/validate-deck?url=${encodeURIComponent(url)}`, {
         method: 'GET',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' }
@@ -451,8 +458,8 @@ const SurveyScreen: React.FC = () => {
                         </IonCol>
                       </IonRow>
 
-                      <IonRow className='expand-row'>
-                        <IonCol size="12"  className="col-bottom-center">
+                      <IonRow className='expand-row' style={{paddingBottom: '10%'}}>
+                        <IonCol size="12"  className="col-bottom-center" >
                           <IonButton shape="round" className="btn-next" onClick={handleNext}>
                             Next
                           </IonButton>
@@ -540,13 +547,13 @@ const SurveyScreen: React.FC = () => {
                           {errorMessage && <IonText color="danger">{errorMessage}</IonText>}
                         </IonCol>
                       </IonRow>
-                      <IonRow className='expand-row'>
-                        <IonCol size="6"  className="col-bottom-center">
+                      <IonRow className='expand-row' style={{paddingBottom: '10%'}}>
+                        <IonCol size="6"  className="col-bottom-center" style={{paddingRight: '10%',paddingLeft: '0%'}}>
                             <IonButton className="btn-back" shape="round" onClick={handleBack}>
                               Back
                             </IonButton>
                         </IonCol>
-                        <IonCol size="6"  className="col-bottom-center">
+                        <IonCol size="6"  className="col-bottom-center" style={{paddingRight: '0%',paddingLeft: '10%'}}>
                             <IonButton className="btn-next" shape="round" onClick={handleNext}>
                               {step < questions.length ? 'Next' : 'Submit'}
                             </IonButton>

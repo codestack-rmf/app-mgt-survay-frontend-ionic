@@ -1,4 +1,4 @@
-.gradient-blur-background {
+.gradient-color {
   position: absolute;
   top: 0;
   left: 0;
@@ -14,5 +14,16 @@
     rgba(151, 225, 212, 0.52) 169.1589deg
   );
   z-index: -1;
+}
+
+.image-background {
+  background: url('../../assets/images/color-carts.png') lightgray 50% / cover no-repeat;
+  filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;         /* ajusta según tu diseño */
+  height: 100%;        /* ajusta según tu diseño */
+  z-index: -2;
 }
   

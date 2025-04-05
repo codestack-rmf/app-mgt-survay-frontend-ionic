@@ -4,22 +4,20 @@
     height: 69px;
     position: relative;
     background: #7A82B9;
-    box-shadow: 0px 1.257px 1.257px 0px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.3) inset;
     height: 69px;
     border-radius: 43px;
     flex-shrink: 0;
     align-items: center;
     gap: 28px;
-    /*overflow: hidden;*/
-    /*padding: 0 15px;*/
-    
+    overflow: hidden;
+    z-index: 0;
   }
   
   .start-slider {
     position: absolute;
     width: 100%;
     opacity: 0;
-    z-index: 2;
   }
   
   .slider-overlay {
@@ -36,8 +34,6 @@
     border-width: 3px;
     height: 100%;
     width: 75%;
-    /*box-shadow: 0px 4px 10px #596AE3;*/
-    
     transition: left 0.1s ease-in-out;
     z-index: 1;
   }
@@ -70,7 +66,6 @@
   .slider-arrow.right {
     position: absolute;
     right: 10px;
-    z-index: 0;
   }
   
   /* Ajustes para móviles */

@@ -108,12 +108,12 @@ ion-card-subtitle {
   }
 
   .row-puntation {
-    padding-bottom: 10px;
-    padding-top: 25px;
+    padding-bottom: 20px;
+    padding-top: 0px;
   }
 
   .row-title {
-    padding-bottom: 10px;
+    padding-bottom: 25px;
   }
 
   .custom-label {
@@ -263,8 +263,8 @@ ion-card-subtitle {
   }
   
   .custom-item {
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 30px;
     --background: rgba(217, 217, 217, 0.06);
   }
 
@@ -407,4 +407,11 @@ ion-card-subtitle {
     padding: 0px;
     margin: 0px;
     background: linear-gradient(90deg, #EAD8F3 0%, #E5EDFF 100%);
+  }
+
+  .custom-indicators {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
   }

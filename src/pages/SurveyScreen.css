@@ -14,12 +14,6 @@
     padding-left: 25px;
     align-content: center;
   }
-  
-  .custom-item {
-    border-radius: 10px;
-    margin-bottom: 10px;
-    --background: rgba(217, 217, 217, 0.06);
-  }
 
   .custom-title-question {
     color: #FFFFFF;

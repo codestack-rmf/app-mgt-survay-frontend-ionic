@@ -14,15 +14,14 @@ const SliderButton: React.FC<SliderButtonProps> = ({ onUnlock, text = "Summon yo
   const [sliderValue, setSliderValue] = useState(0);
 
   const handleSliderChange = (event: CustomEvent) => {
-    let value = event.detail.value;
-    if (value < 0) value = 0;
-    if (value > 51) value = 51; // Limita el slider al 51%
+    const value = Number(event.detail.value);
     setSliderValue(value);
   };
 
   const handleSliderEnd = () => {
     if (sliderValue >= 25) {
-      onUnlock();
+      onUnlock(); // Cambiar de ruta
+      setSliderValue(0); // Opcional: resetear el slider visualmente
     } else {
       setSliderValue(0);
     }

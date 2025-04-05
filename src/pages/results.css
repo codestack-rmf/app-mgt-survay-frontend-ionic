@@ -11,10 +11,3 @@
 .radar-container {
   padding: 1rem;
 }
-
-.custom-indicators {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
