@@ -43,11 +43,11 @@ const RadarChart: React.FC<RadarChartProps> = ({ answers }) => {
           answers.commanderStaples,
           answers.buildPhilosophy,
         ],
-        backgroundColor: "rgba(0, 122, 255, 0.3)",
-        borderColor: "#007aff",
+        backgroundColor: "rgb(89, 106, 227, 0.3)",
+        borderColor: "rgb(89, 106, 227)",
         borderWidth: 2,
         pointBackgroundColor: "#fff",
-        pointBorderColor: "#007aff",
+        pointBorderColor: "rgb(89, 106, 227)",
       },
     ],
   };
@@ -78,7 +78,13 @@ const RadarChart: React.FC<RadarChartProps> = ({ answers }) => {
     },
   };
 
-  return <Radar data={data} options={options} />;
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '55%'}}>
+        <Radar data={data} options={options} />
+      </div>
+    </div>
+  );
 };
 
 export default RadarChart;

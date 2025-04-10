@@ -5,17 +5,20 @@ const BackgroundSvg: React.FC = () => {
   return (
     <div
       style={{
+        height: '100%',
+        width: '100%',
         position: 'absolute',
         inset: 0,
         zIndex: 0,
         overflow: 'hidden',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        backgroundColor: 'black'
       }}
     >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="440"
-      height="956"
+      width="100%"
+      height="100%"
       viewBox="0 0 440 956"
       fill="none"
     >

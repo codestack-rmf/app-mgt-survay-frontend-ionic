@@ -29,15 +29,21 @@ ion-card-subtitle {
     height: 100%;
     text-align: center;
     padding: 30px;
-    overflow: auto;
+  }
+
+  .keyboard-fix {
+    --padding-bottom: env(safe-area-inset-bottom);
+    --overflow: auto;
   }
 
   .scroll {
-    overflow: auto;
+    height: 100%;
+    overflow-y: auto;
   }
 
 .full-height-grid {
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -143,7 +149,6 @@ ion-card-subtitle {
   }
 
   .custom-range {
-    
     --bar-background-active: linear-gradient(90deg, rgba(151, 225, 212, 0.72) 4.29%);
     --bar-background:#8E91A1;
     --bar-height: 13px;
@@ -228,7 +233,6 @@ ion-card-subtitle {
     pointer-events: none;
     transition: opacity 0.2s ease;
     opacity: 1;
-
     color: #FFF;
     font-size: 15px;
     font-weight: 500;
@@ -250,8 +254,10 @@ ion-card-subtitle {
     width: 100%;
     height: 100%;
     margin: 0px;
-    background-color: black;
+    overflow-x: hidden;
+    overflow-y: auto;
     border-radius: 0px;
+    background: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -259,7 +265,6 @@ ion-card-subtitle {
     text-align: left;
     font-size: 37px;
     font-weight: 700;
-    
   }
   
   .custom-item {
@@ -364,6 +369,16 @@ ion-card-subtitle {
     color: #596AE3 !important;
   }
 
+  .title-header-result-3 {
+    text-align: justify;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 96%;
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    color: #EEEEEE !important;
+  }
+
   .subtitle-header-result {
     align-self: stretch;
     text-align: center;
@@ -407,6 +422,11 @@ ion-card-subtitle {
     padding: 0px;
     margin: 0px;
     background: linear-gradient(90deg, #EAD8F3 0%, #E5EDFF 100%);
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*flex-grow: 1;*/
+    display: flex;
+    flex-direction: column;
   }
 
   .custom-indicators {
@@ -414,4 +434,23 @@ ion-card-subtitle {
     display: flex;
     justify-content: center;
     gap: 10px;
+  }
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .row-swiper {
+    height: 70%;
+  }
+
+  .row-swiper-indicators {
+    height: 10%;
+  }
+
+  .custom-swiper {
+    width: 100%;
+    height: 100%;
   }

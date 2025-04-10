@@ -13,7 +13,7 @@ const WelcomeScreen: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="custom-container">
+      <IonContent fullscreen scrollY={true} className="custom-container keyboard-fix">
         <IonCard className="survey-card">
           <BackgroundWelcome/>
           <IonGrid fixed={true} className='full-height-grid'>

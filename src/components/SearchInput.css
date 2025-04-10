@@ -1,0 +1,32 @@
+.custom-list {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    background-color: #363535;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 2px solid white;
+    border-radius: 8px;
+}
+
+.custom-item-list {
+  background: none;
+}
+
+ion-item.custom-item-list::part(native) {
+  background: none;
+}
+
+.custom-label-list {
+  background: none;
+  color:white;
+}
+  /* Ajustes para móviles */
+  /*@media (max-width: 768px) {
+    .slider-overlay {
+      font-size: 0.9rem;
+      width: 140px;
+      height: 100%;
+    }
+
+  }*/

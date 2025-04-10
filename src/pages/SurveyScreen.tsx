@@ -15,6 +15,7 @@ import HeaderConsistency from '../components/icons/HeaderConsistency';
 import HeaderSpeed from '../components/icons/HeaderSpeed';
 import HeaderWinning from '../components/icons/HeaderWinning';
 import NumberQuestion from '../components/NumberQuestion';
+import SearchInput from '../components/SearchInput';
 
 
 const questions = [
@@ -176,6 +177,7 @@ const SurveyScreen: React.FC = () => {
     setAnswers({});
     setErrorMessage('');
   }, [location.pathname]);*/
+  
 
 
   const currentQuestion = questions[step ? step - 1 : 0];
@@ -284,7 +286,6 @@ const SurveyScreen: React.FC = () => {
   };
 
   const handleBlur = async (url: string) => {
-    debugger;
 
     setDeckUrl(url);
 
@@ -317,14 +318,12 @@ const SurveyScreen: React.FC = () => {
   return (
     <IonPage>
       
-      <IonContent className="custom-container">
-        
+      <IonContent fullscreen scrollY={true} className="custom-container keyboard-fix">
+        <BackgroundSvg/>
             {step === 0 ? (
               <>
                 <IonCard className="survey-card">
-                  <BackgroundSvg/>
-                
-                  <IonCardContent className='scroll'>
+                  
                     <IonGrid fixed={true} className='full-height-grid'>
                       <IonRow>
                         <IonCol size='12'>
@@ -401,11 +400,12 @@ const SurveyScreen: React.FC = () => {
                       </IonRow>
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                        <IonInput 
+                        {/*<IonInput 
                           fill="outline" shape="round" 
                           className='input-bordered'
                           placeholder="Select commander"
-                          value={selectedCommander} onIonChange={(e) => setSelectedCommander(e.detail.value!)} />
+                          value={selectedCommander} onIonChange={(e) => setSelectedCommander(e.detail.value!)} />*/}
+                          <SearchInput value={selectedCommander} onSelect={setSelectedCommander} placeHolder='Search commander' />
                         </IonCol>
                       </IonRow>
                       
@@ -420,11 +420,12 @@ const SurveyScreen: React.FC = () => {
                       {usePartnerCommander && (
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                          <IonInput 
+                          {/*<IonInput 
                             fill="outline" shape="round" 
                             className='input-bordered'
                             placeholder="Select Partner Commander"
-                            value={partnerCommander} onIonChange={(e) => setPartnerCommander(e.detail.value!)} />
+                            value={partnerCommander} onIonChange={(e) => setPartnerCommander(e.detail.value!)} />*/}
+                            <SearchInput value={partnerCommander} onSelect={setPartnerCommander} placeHolder='Select Partner Commander' />
                         </IonCol>
                       </IonRow>
                       )}
@@ -471,16 +472,14 @@ const SurveyScreen: React.FC = () => {
                     {errorMessage && <IonText color="danger">{errorMessage}</IonText>}
 
                     
-                  </IonCardContent>
+                  
                   
                 </IonCard>
               </>
             ) : step <= questions.length ? (
               <>
                 <IonCard className="survey-card">
-                  <BackgroundSvg/>
                   <NumberQuestion numberText={step}/>
-                  <IonCardContent className='scroll'>
                     <IonGrid fixed={true} className='full-height-grid'>
                       <IonRow className='row-puntation'>
                         <IonCol size='7' style={
@@ -561,12 +560,13 @@ const SurveyScreen: React.FC = () => {
                       </IonRow>
                     </IonGrid>
                     
-                  </IonCardContent>
+                  
                 </IonCard>
               </>
             ) : (
               <p>Processing results...</p>
             )}
+        
       </IonContent>
     </IonPage>
   );
