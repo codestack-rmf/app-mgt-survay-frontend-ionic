@@ -314,10 +314,17 @@ const SurveyScreen: React.FC = () => {
     }
   };
 
+  const labels = [
+    '0. No experience',
+    '1. I just started, what’s the stack?',
+    '2. I don’t know what I know, but I know what I don’t know.',
+    '3. I’m pretty experienced; I can walk the table through the stack.',
+    '4. I consider myself very experienced.'
+  ];
+
 
   return (
     <IonPage>
-      
       <IonContent fullscreen scrollY={true} className="custom-container keyboard-fix">
         <BackgroundSvg/>
             {step === 0 ? (
@@ -347,7 +354,7 @@ const SurveyScreen: React.FC = () => {
                       </IonRow>
                       
                       {deckImport && (
-                      <IonRow>
+                      <IonRow style={{ paddingTop: '25px'}}>
                         <IonCol size="12"  className="col-left">
                           <IonLabel className='custom-label' >Deck URL</IonLabel>
                         </IonCol>
@@ -368,7 +375,7 @@ const SurveyScreen: React.FC = () => {
                       )
                       }
 
-                      <IonRow>
+                      <IonRow style={{ paddingTop: '25px'}}>
                         <IonCol size="12"  className="col-left">
                           <IonLabel className='custom-label'>Deck Name</IonLabel>
                         </IonCol>
@@ -382,7 +389,7 @@ const SurveyScreen: React.FC = () => {
                             value={deckName} onIonChange={(e) => setDeckName(e.detail.value!)} />
                         </IonCol>
                       </IonRow>
-                      <IonRow>
+                      <IonRow style={{ paddingTop: '25px'}}>
                         <IonCol size="6"  className="col-left">
                           <IonLabel className='custom-label' >Commander</IonLabel>
                         </IonCol>
@@ -400,17 +407,12 @@ const SurveyScreen: React.FC = () => {
                       </IonRow>
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                        {/*<IonInput 
-                          fill="outline" shape="round" 
-                          className='input-bordered'
-                          placeholder="Select commander"
-                          value={selectedCommander} onIonChange={(e) => setSelectedCommander(e.detail.value!)} />*/}
                           <SearchInput value={selectedCommander} onSelect={setSelectedCommander} placeHolder='Search commander' />
                         </IonCol>
                       </IonRow>
                       
                       {usePartnerCommander && (
-                      <IonRow>
+                      <IonRow style={{ paddingTop: '25px'}}>
                         <IonCol size="12"  className="col-left">
                           <IonLabel className='custom-label' >Partner Commander</IonLabel>
                         </IonCol>
@@ -420,17 +422,12 @@ const SurveyScreen: React.FC = () => {
                       {usePartnerCommander && (
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                          {/*<IonInput 
-                            fill="outline" shape="round" 
-                            className='input-bordered'
-                            placeholder="Select Partner Commander"
-                            value={partnerCommander} onIonChange={(e) => setPartnerCommander(e.detail.value!)} />*/}
                             <SearchInput value={partnerCommander} onSelect={setPartnerCommander} placeHolder='Select Partner Commander' />
                         </IonCol>
                       </IonRow>
                       )}
 
-                      <IonRow>
+                      <IonRow style={{ paddingTop: '25px'}}>
                         <IonCol size="12"  className="col-left">
                           <IonLabel className='custom-label'>Player Experience</IonLabel>
                         </IonCol>
@@ -443,19 +440,39 @@ const SurveyScreen: React.FC = () => {
 
                       <IonRow>
                         <IonCol size="12"  className="col-left">
-                          <IonRange 
-                            className='custom-range'
-                            ticks={true}
-                            snaps={true}
-                            min={0}
-                            max={4}
-                            step={1}
-                            value={playerExperience}
-                            onIonInput={(e) => setPlayerExperience(Number(e.detail.value))}
-                            style={{
-                              '--bar-background-active': getColorExperience(playerExperience),
-                            }}
-                            />
+                          <div style={{ padding: '0px' }}>
+                            <IonRange 
+                              className='custom-range'
+                              ticks={true}
+                              snaps={true}
+                              min={0}
+                              max={4}
+                              step={1}
+                              value={playerExperience}
+                              onIonInput={(e) => setPlayerExperience(Number(e.detail.value))}
+                              style={{
+                                '--bar-background-active': getColorExperience(playerExperience),
+                              }}
+                              />
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              marginTop: '8px',
+                              padding: '0 4px'
+                              }}>
+                              
+                                <IonLabel
+                                  style={{
+                                    fontSize: '15px',
+                                    textAlign: 'center',
+                                    flex: 1
+                                  }}
+                                >
+                                  {labels[playerExperience]}
+                                </IonLabel>
+                              
+                            </div>
+                          </div>
                         </IonCol>
                       </IonRow>
 
